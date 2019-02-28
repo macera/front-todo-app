@@ -237,9 +237,6 @@ export default class TodoList extends Component {
 
 ```
 
-フォームの部分を追加
-追加した箇所にコメントつける
-
 ## create directry for graphql query
 
 `$ mkdir src/graphqls`
@@ -281,9 +278,6 @@ mutation addTodoMutation($content: String!) {
 ```
 
 ## use graphql compose method
-
-ここでgraphqlのcomposeを使用する
-composeに{  name: 'addTodo' }を渡したい
 
 src/components/App.js
 ```
