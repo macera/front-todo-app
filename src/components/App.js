@@ -1,39 +1,50 @@
-import React from 'react';
-import { gql } from 'apollo-boost';
-import { Query } from 'react-apollo';
-
+import React, { Component } from "react";
+import { compose, graphql } from 'react-apollo';
 import TodoList from './TodoList';
 
-const GET_TODO_LIST = gql`
-  query {
-    todos(first:  10) {
-      edges {
-        node {
-          id
-          content
+import GetTodosQuery from '../graphqls/GetTodosQuery';
+import AddTodoMutation from '../graphqls/AddTodoMutation';
+
+export default class App extends Component {
+
+  render() {
+
+    const TodoListWithData = compose(
+      // 全件取得
+      graphql(GetTodosQuery, {
+        options: {
+          fetchPolicy: 'cache-and-network'
+        },
+        props: (props) => (
+          { todos: props.data.todos ? props.data.todos.edges : [] }
+        )
+      }),
+      // 追加
+      graphql(AddTodoMutation, {
+        props: (props) => ({
+          onAdd: (todo) => {
+
+            props.mutate({
+              variables: { content: todo.content },
+              optimisticResponse: () => ({ addTodoMutation: { todo: {...todo, __typename: 'Todo' }, __typename: 'Mutation', errors: [] } })
+            })
+          }
+        }),
+        options: {
+          // 追加の後に全件リストを更新する
+          refetchQueries: [{ query: GetTodosQuery }]
         }
-      }
-    }
+      })
+    )(TodoList);
+
+
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1 className="App-title">Todo List</h1>
+        </header>
+        <TodoListWithData />
+      </div>
+    )
   }
-`
-const App = () => (
-  <Query query={GET_TODO_LIST}>
-    {({ loading, error, data }) => {
-      if (loading) return <div>Loading...</div>;
-      if (error) return <div>Error :(</div>;
-
-      const todos = data.todos ? data.todos.edges : []
-
-      return (
-        <div className="App">
-          <header className="App-header">
-            <h1 className="App-title">Todo List</h1>
-          </header>
-          <TodoList todos={todos} />
-        </div>
-      )
-    }}
-  </Query>
-)
-
-export default App;
+}

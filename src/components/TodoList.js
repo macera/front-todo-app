@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 export default class TodoList extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +48,7 @@ export default class TodoList extends Component {
   };
 
   render() {
-    const { todos } = this.props; //graphql compose
+    const { todos } = this.props;
     const Todos = todos ? todos.map(x => x.node) : []
     return (
       <div>
