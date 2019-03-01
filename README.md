@@ -89,7 +89,7 @@ export default App;
 
 以降別タブで作業
 
-以下のコードは [Qiita記事](https://qiita.com/daikiojm/items/da81259a3e365fee9333) より一部参照
+以下のコードは [Qiita記事(AWS AppSyncとReactでToDoアプリを作ってみよう(3) Reactアプリの作成)](https://qiita.com/daikiojm/items/da81259a3e365fee9333) より一部参照
 
 ## create TODO list
 
