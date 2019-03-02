@@ -240,9 +240,9 @@ export default class TodoList extends Component {
 ## create directry for graphql query
 
 `$ mkdir src/graphqls`
-`$ touch src/graphqls/QueryGetTodos.js`
+`$ touch src/graphqls/GetTodosQuery.js`
 
-src/graphqls/QueryGetTodos.js
+src/graphqls/GetTodosQuery.js
 ```
 import gql from "graphql-tag";
 
@@ -259,9 +259,9 @@ query {
 }`);
 ```
 
-`$ touch src/graphqls/MutationAddTodo.js`
+`$ touch src/graphqls/AddTodoMutation.js`
 
-src/graphqls/QueryGetTodos.js
+src/graphqls/AddTodoMutation.js
 ```
 import gql from "graphql-tag";
 
